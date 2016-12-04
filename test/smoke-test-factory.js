@@ -85,13 +85,51 @@ describe('module factory smoke test', () => {
 
     it('remove should return remove card from deck', done => {
         var deck = _factory.create({});
-        // deck.dump();
         var card = { suit: 4, rank: 9 };
         deck.includes(card).should.eql(true);
         deck.remove(card);
-        // deck.dump();
         deck.includes(card).should.eql(false);
         deck.size().should.eql(51);
+        done();
+    });
+
+    it('insert should insert card if it is not in deck true', done => {
+        var deck = _factory.create({});
+        var card = { suit: 4, rank: 9 };
+        deck.includes(card).should.eql(true);
+        deck.remove(card);
+        deck.size().should.eql(51);
+        deck.includes(card).should.eql(false);
+        deck.insert(card).should.eql(true);
+        deck.size().should.eql(52);
+        deck.includes(card).should.eql(true);
+        done();
+    });
+
+    it('insert should not insert card with invalid suit', done => {
+        var deck = _factory.create({});
+        var card = { suit: 20, rank: 9 };
+        deck.insert(card).should.eql(false);
+        deck.size().should.eql(52);
+        deck.includes(card).should.eql(false);
+        done();
+    });
+
+    it('insert should not insert card with invalid rank', done => {
+        var deck = _factory.create({});
+        var card = { suit: 4, rank: 20 };
+        deck.insert(card).should.eql(false);
+        deck.size().should.eql(52);
+        deck.includes(card).should.eql(false);
+        done();
+    });
+
+    it('insert should not insert invalid card object', done => {
+        var deck = _factory.create({});
+        var card = {};
+        deck.insert(card).should.eql(false);
+        deck.size().should.eql(52);
+        deck.includes(card).should.eql(false);
         done();
     });
 

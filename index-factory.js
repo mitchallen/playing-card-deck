@@ -54,6 +54,20 @@ module.exports.create = (spec) => {
            _deck = (_deck.filter(function(c) {
                 return !(c.suit === card.suit && c.rank === card.rank);
             })); 
+        },
+        insert: function(card) {
+            if( this.includes(card) ) {
+                return false;
+            }
+            if( ! RANK.isRank(card.rank) ) {
+                return false;
+            }
+            if( ! SUIT.isSuit(card.suit) ) {
+                return false;
+            }
+            // Unshift puts at start of array. Push would be the end.
+            _deck.unshift(card);
+            return true;
         }
     };
 };
