@@ -59,4 +59,47 @@ describe('module factory smoke test', () => {
         obj.health().should.eql("OK");
         done();
     });
+
+    it('default deck.size should return 52', done => {
+        var deck = _factory.create({});
+        should.exist(deck);
+        deck.size().should.eql(52);
+        done();
+    });
+
+    it('shuffle should shuffle deck', done => {
+        var deck = _factory.create({});
+        should.exist(deck);
+        deck.shuffle();
+        deck.size().should.eql(52);
+        // TODO - make sure deck is shuffled
+        // deck.dump();
+        done();
+    });
+
+    it('deal should remove a card from the deck and return it', done => {
+        var deck = _factory.create({});
+        should.exist(deck);
+        deck.shuffle();
+        var card = deck.deal();
+        deck.size().should.eql(51);
+        card.should.have.property('suit').which.is.a.Number();
+        card.should.have.property('rank').which.is.a.Number();
+        done();
+    });
+
+    it('deal n should remove n cards from the deck and return them', done => {
+        var deck = _factory.create({});
+        should.exist(deck);
+        deck.shuffle();
+        var handSize = 5;
+        var hand = deck.deal(handSize);
+        deck.size().should.eql(52 - handSize);
+        hand.length.should.eql(handSize);
+        hand.forEach( function(card) {
+            card.should.have.property('suit').which.is.a.Number();
+            card.should.have.property('rank').which.is.a.Number();  
+        });
+        done();
+    });
 });
