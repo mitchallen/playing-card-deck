@@ -47,9 +47,13 @@ module.exports.create = (spec) => {
         },
         includes: function(card) {
             return (_deck.filter(function(c) {
-                return c.suit === card.suit 
-                    && c.rank === card.rank
+                return c.suit === card.suit && c.rank === card.rank;
             })).length > 0;
+        },
+        remove: function(card) {
+           _deck = (_deck.filter(function(c) {
+                return !(c.suit === card.suit && c.rank === card.rank);
+            })); 
         }
     };
 };

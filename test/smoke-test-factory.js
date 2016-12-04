@@ -71,6 +71,7 @@ describe('module factory smoke test', () => {
         // deck.dump();
         var card = { suit: 4, rank: 9 };
         deck.includes( card ).should.eql(true);
+        deck.size().should.eql(52);
         done();
     });
 
@@ -79,6 +80,18 @@ describe('module factory smoke test', () => {
         // deck.dump();
         var card = { suit: 6, rank: 9 };
         deck.includes( card ).should.eql(false);
+        done();
+    });
+
+    it('remove should return remove card from deck', done => {
+        var deck = _factory.create({});
+        // deck.dump();
+        var card = { suit: 4, rank: 9 };
+        deck.includes(card).should.eql(true);
+        deck.remove(card);
+        // deck.dump();
+        deck.includes(card).should.eql(false);
+        deck.size().should.eql(51);
         done();
     });
 
