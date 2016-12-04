@@ -44,6 +44,12 @@ module.exports.create = (spec) => {
         },
         deal: (count) => {
             return count ? _deck.splice( 0, count ) : _deck.shift();
+        },
+        includes: function(card) {
+            return (_deck.filter(function(c) {
+                return c.suit === card.suit 
+                    && c.rank === card.rank
+            })).length > 0;
         }
     };
 };

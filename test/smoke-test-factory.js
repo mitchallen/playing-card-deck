@@ -62,14 +62,28 @@ describe('module factory smoke test', () => {
 
     it('default deck.size should return 52', done => {
         var deck = _factory.create({});
-        should.exist(deck);
         deck.size().should.eql(52);
+        done();
+    });
+
+    it('includes should return true for valid card', done => {
+        var deck = _factory.create({});
+        // deck.dump();
+        var card = { suit: 4, rank: 9 };
+        deck.includes( card ).should.eql(true);
+        done();
+    });
+
+    it('includes should return false for invalid card', done => {
+        var deck = _factory.create({});
+        // deck.dump();
+        var card = { suit: 6, rank: 9 };
+        deck.includes( card ).should.eql(false);
         done();
     });
 
     it('shuffle should shuffle deck', done => {
         var deck = _factory.create({});
-        should.exist(deck);
         deck.shuffle();
         deck.size().should.eql(52);
         // TODO - make sure deck is shuffled
@@ -85,6 +99,7 @@ describe('module factory smoke test', () => {
         deck.size().should.eql(51);
         card.should.have.property('suit').which.is.a.Number();
         card.should.have.property('rank').which.is.a.Number();
+        deck.includes(card).should.eql(false);
         done();
     });
 
