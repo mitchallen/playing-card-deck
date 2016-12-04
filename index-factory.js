@@ -34,8 +34,7 @@ module.exports.create = (spec) => {
         health: () => "OK",
         size: () => _deck.length,
         shuffle: () => {
-            var d = shuffleFactory.create({ array: _deck });
-            _deck = d.shuffle();
+            _deck = shuffleFactory.create({ array: _deck }).shuffle();
         },
         dump: () => {
             _deck.forEach( card => {

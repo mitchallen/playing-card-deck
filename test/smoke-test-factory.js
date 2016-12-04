@@ -83,7 +83,7 @@ describe('module factory smoke test', () => {
         done();
     });
 
-    it('remove should return remove card from deck', done => {
+    it('remove should remove card from deck', done => {
         var deck = _factory.create({});
         var card = { suit: 4, rank: 9 };
         deck.includes(card).should.eql(true);
